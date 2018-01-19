@@ -27,13 +27,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
-SECRET_KEY = 't!^r30fvy(0!lx*2_j0r!3dgn1zmuc_w4v)@dvn(-nb6qkzcy7'
- 
- # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = []
-# Application definition
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -85,11 +83,10 @@ WSGI_APPLICATION = 'olympics.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-     }
- }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
