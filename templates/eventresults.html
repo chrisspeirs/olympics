@@ -1,0 +1,54 @@
+
+{% extends 'base.html' %}
+
+{% block title %}{{ event.name }} Results{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'olympics' olympics.pk %}">{{ olympics.name }}</a></li>
+ 
+  <li class="breadcrumb-item active">{{ event.name }}</li>
+{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="{% url 'recordscore' olympics.pk event.pk %}" class="btn btn-primary">Record Score</a>
+  </div>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Players</th>
+            <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+           {% for scores in scores %}
+           <tr>
+            <td>
+            
+            {{ scores.player.name }} <br>
+ 
+            </td>
+<td>
+            
+            {{ scores.score }} <br>
+ 
+            </td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+     </table>
+{%if user.is_superuser %}
+    {% if event.isRanked %}
+     <div class="mb-4">
+    <a href="{% url 'endevent' olympics.pk event.pk %}" class="btn btn-primary">Close Event</a>
+  </div>
+{% else %}
+        <div class="mb-4">
+    <a href="{% url 'nextround' olympics.pk event.pk %}" class="btn btn-primary">Next Round </a>
+  </div>
+{% endif %} 
+{% endif %}
+{% endblock %}

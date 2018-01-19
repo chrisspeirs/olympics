@@ -1,0 +1,75 @@
+
+{% extends 'base.html' %}
+
+{% block title %}{{ event.name }} Tourney Round {{ event.currentRound }}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'olympics' olympics.pk %}">{{ olympics.name }}</a></li>
+ 
+  <li class="breadcrumb-item active">{{ event.name }}</li>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="mb-4">
+
+    {% if event.isRunning %}
+    <a href="{% url 'win' olympics.pk event.pk %}" class="btn btn-primary">I am a Winner </a>
+
+    <a href="{% url 'lose' olympics.pk event.pk %}" class="btn btn-primary">I am a Loser </a>
+
+  {% endif %}
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Contestant Number 1</th>
+            <th></th>
+            <th>Contestant Number 2</th>
+                      <th>The Baws</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+           {% for games in games %}
+           <tr>
+            <td>
+            
+            {{ games.player1.name }} <br>
+             </td>
+<td>
+            
+            v <br>
+ 
+            </td>
+            </td>
+<td>
+            
+            {{ games.player2.name }} <br>
+ 
+            </td>
+            <td>
+            
+            {{ games.winner.name }} <br>
+ 
+            </td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+     </table>
+{%if user.is_superuser %}
+ 
+{% if event.isRunning %}
+        <div class="mb-4">
+    <a href="{% url 'nextround' olympics.pk event.pk %}" class="btn btn-primary">Next Round </a>
+  </div>
+
+  {% else %}
+        <div class="mb-4">
+    <a href="{% url 'tourneyresult' olympics.pk event.pk %}" class="btn btn-primary">View Previous Round </a>
+  </div>
+{% endif %} 
+{% endif %}
+{% endblock %}

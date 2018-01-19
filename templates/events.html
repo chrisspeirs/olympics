@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ olympics.name }} - {{ block.super }}
+{% endblock %}
+
+
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+  <li class="breadcrumb-item active">{{ olympics.name }}</li>
+   <li class="breadcrumb-item"><a href="{% url 'results' olympics.pk %}"> Results </a></li>
+{% endblock %}
+
+
+
+
+{% block content %}
+  
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Events</th>
+            <th>Winner</th>
+            </tr>
+        </thead>
+        <tbody>
+           {% for event in event %}
+           <tr>
+            <td>
+ <a href="{% url 'eventresult' olympics.pk event.pk %}">           {{ event.name }} <br></a>
+             <small class="text-muted d-blockwhisper is">{{ event.olympics }}</small>
+            </td>
+            <td>
+{%if event.isRunning %}
+
+{% else %}<a href="{% url 'eventresult' olympics.pk event.pk %}">           {{ event.winner.name }} <br></a>
+             <small class="text-muted d-blockwhisper is">The Champ</small>
+            </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+     </table>
+
+{% endblock %}
+
+
+
