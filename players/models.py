@@ -93,7 +93,7 @@ class Tourney(models.Model):
 class Game(models.Model):
 
     
-    player1= models.ForeignKey(Players, related_name='player1')
+    player1= models.ForeignKey(Players, related_name='player1', null= True)
     player2= models.ForeignKey(Players, related_name='player2', null= True)
     eventRound=models.IntegerField(default=1)    
     winner= models.ForeignKey(Players, related_name='game', null=True)
