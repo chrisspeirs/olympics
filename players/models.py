@@ -97,7 +97,7 @@ class Game(models.Model):
     player2= models.ForeignKey(Players, related_name='player2', null= True, on_delete=models.SET_NULL)
     eventRound=models.IntegerField(default=1, null=True)    
     winner= models.ForeignKey(Players, related_name='game', null=True,on_delete=models.SET_NULL)
-    cascade=models.IntegerField(default=1)
+   
 
     tourney= models.ForeignKey(Tourney, related_name='tourney',null=True,on_delete=models.SET_NULL)
 
