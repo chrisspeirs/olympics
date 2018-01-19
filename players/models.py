@@ -93,10 +93,10 @@ class Tourney(models.Model):
 class Game(models.Model):
 
     
-    player1= models.ForeignKey(Players, related_name='player1', null= True, on_delete=models.SET_NULL)
-    player2= models.ForeignKey(Players, related_name='player2', null= True, on_delete=models.SET_NULL)
+    player1= models.ForeignKey(Players, related_name='player1', null= True, on_delete=models.CASCADE)
+    player2= models.ForeignKey(Players, related_name='player2', null= True, on_delete=models.CASCADE)
     eventRound=models.IntegerField(default=1, null=True)    
-    winner= models.ForeignKey(Players, related_name='game', null=True,on_delete=models.SET_NULL)
+    winner= models.ForeignKey(Players, related_name='game', null=True,on_delete=models.CASCADE)
    
 
     tourney= models.ForeignKey(Tourney, related_name='tourney',null=True,on_delete=models.CASCADE)
