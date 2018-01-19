@@ -54,8 +54,8 @@ class Olympics(models.Model):
 class Tourney(models.Model):
 
     name=models.CharField(max_length=50, default='Bowling')
-    olympics=models.ForeignKey(Olympics, related_name='olympics',on_delete='cascade', null=True)
-    winner= models.ForeignKey(Players, related_name='touneywinner',on_delete='cascade', null=True)
+    olympics=models.ForeignKey(Olympics, related_name='olympics',null=True)
+    winner= models.ForeignKey(Players, related_name='touneywinner', null=True)
     isRanked=models.BooleanField(default=True)
     currentRound=models.IntegerField(default=0)
     isRunning=models.BooleanField(default=True)
@@ -93,12 +93,12 @@ class Tourney(models.Model):
 class Game(models.Model):
 
     
-    player1= models.ForeignKey(Players, related_name='player1',on_delete='cascade')
-    player2= models.ForeignKey(Players, related_name='player2',on_delete='cascade', null= True)
+    player1= models.ForeignKey(Players, related_name='player1')
+    player2= models.ForeignKey(Players, related_name='player2', null= True)
     eventRound=models.IntegerField(default=1)    
-    winner= models.ForeignKey(Players, related_name='game',on_delete='cascade', null=True)
+    winner= models.ForeignKey(Players, related_name='game', null=True)
 
-    tourney= models.ForeignKey(Tourney, related_name='tourney', on_delete='cascade')
+    tourney= models.ForeignKey(Tourney, related_name='tourney')
 
     def __str__(self):
        
@@ -107,8 +107,8 @@ class Game(models.Model):
     
 class Score(models.Model):
 
-    player= models.ForeignKey(Players, related_name='player',on_delete='cascade',null=True)
-    tourney= models.ForeignKey(Tourney, related_name='olympic', on_delete='cascade', null=True)
+    player= models.ForeignKey(Players, related_name='player',null=True)
+    tourney= models.ForeignKey(Tourney, related_name='olympic', null=True)
     score = models.IntegerField(default = 0)
 
     class Meta:
@@ -116,8 +116,8 @@ class Score(models.Model):
 
 class Result(models.Model):
 
-    player= models.ForeignKey(Players, related_name='playerr',on_delete='cascade',null=True)
-    tourney= models.ForeignKey(Tourney, related_name='olympic1', on_delete='cascade', null=True)
+    player= models.ForeignKey(Players, related_name='playerr',null=True)
+    tourney= models.ForeignKey(Tourney, related_name='olympic1', null=True)
     result = models.IntegerField(default = 0)
 
     class Meta:
@@ -125,8 +125,8 @@ class Result(models.Model):
 
 class Points(models.Model):
 
-    player= models.ForeignKey(Players, related_name='playerrs',on_delete='cascade',null=True)
-    olympics= models.ForeignKey(Olympics, related_name='olympicss', on_delete='cascade', null=True)
+    player= models.ForeignKey(Players, related_name='playerrs',null=True)
+    olympics= models.ForeignKey(Olympics, related_name='olympicss', null=True)
     result = models.IntegerField(default = 0)
 
     class Meta:
